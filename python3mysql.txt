@@ -1,0 +1,15 @@
+python3 mysql
+""" trong create cho phép xuống dòng
+dùng sql để mk coi như hàm con và dễ biết sai hoặc đúng.
+Sau đó chỉ cần cursor.execute(sql)
+
+commit : dùng để lưu toàn bộ file python trong mysql. đảm bảo câu lệnh được lưu vào mysqk.
+
+try: thực hiện cviec nếu k đúng -> except
+except:
+
+db.close() ( đóng đường kết nối db)
+cursor.fetchall : lấy all các gía trị trong mảng 2 chiều khi ta show bảng sensors ra.
+
+* update:
+* BTVN dùng python tạo ra 1 table tên bất ký insert 10 value của sensor bất kỳ. Hỏi người dùng muốn sắp xếp theo kiểu dữ liệu vào (temp, hum,...) in ra dữ liệu đã sắp xếp.

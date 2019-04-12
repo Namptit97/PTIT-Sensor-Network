@@ -1,0 +1,128 @@
+                     
+<html>
+<head>
+  <script src="https://cdn.anychart.com/releases/v8/js/anychart-base.min.js?hcode=be5162d915534272a57d0bb781d27f2b"></script>
+  <script src="https://cdn.anychart.com/releases/v8/js/anychart-ui.min.js?hcode=be5162d915534272a57d0bb781d27f2b"></script>
+  <script src="https://cdn.anychart.com/releases/v8/js/anychart-exports.min.js?hcode=be5162d915534272a57d0bb781d27f2b"></script>
+  <link href="https://cdn.anychart.com/releases/v8/css/anychart-ui.min.css?hcode=be5162d915534272a57d0bb781d27f2b" type="text/css" rel="stylesheet">
+  <link href="https://cdn.anychart.com/releases/v8/fonts/css/anychart-font.min.css?hcode=be5162d915534272a57d0bb781d27f2b" type="text/css" rel="stylesheet">
+  <style type="text/css">
+html, body, #container {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+</style>
+</head>
+<body>
+  <div id="container"></div>
+  <script>
+
+setInterval(function(){ 
+	const Http = new XMLHttpRequest();
+	const url='http://localhost:3000/';
+	Http.open("GET", '/');
+	Http.send();
+
+
+ }, 5000);
+setTimeout(function() {
+	  location.reload();
+	}, 10000);
+
+var decodeHtmlEntity = function(x) {
+	  return x.replace(/&#(\d+);/g, function(match, dec) {
+	    return String.fromCharCode(dec);
+	  });
+	};
+	var names = "<%=name%>";
+	var arr_data = [];
+	var res = decodeHtmlEntity(names);
+	var x = JSON.parse(res);	
+	for (i = 0; i < x.length; i++) {
+          arr_data[i] = [x[i].Date_and_Time.slice(0,19) ,x[i].Sensor_ID , x[i].Humidity , x[i].Temperature];
+	}
+
+	console.log(arr_data);
+anychart.onDocumentReady(function () {
+    // create data set on our data
+    var dataSet = anychart.data.set(arr_data);
+
+    // map data for the first series, take x from the zero column and value from the first column of data set
+    var seriesData_1 = dataSet.mapAs({'x': 0, 'value': 2});
+
+    // map data for the second series, take x from the zero column and value from the second column of data set
+    var seriesData_2 = dataSet.mapAs({'x': 0, 'value': 3});
+
+
+
+    // create line chart
+    var chart = anychart.line();
+
+    // turn on chart animation
+    chart.animation(true);
+
+    // set chart padding
+    chart.padding([10, 20, 5, 20]);
+
+    // turn on the crosshair
+    chart.crosshair()
+            .enabled(true)
+            .yLabel(false)
+            .yStroke(null);
+
+    // set tooltip mode to point
+    chart.tooltip().positionMode('point');
+
+    // set chart title text settings
+    chart.title('VU HAI LONG D15DCDT121');
+
+    // set yAxis title
+    chart.yAxis().title('Value');
+    chart.xAxis().labels().padding(5);
+
+    // create first series with mapped data
+    var series_1 = chart.line(seriesData_1);
+    series_1.name('Humidity');
+    series_1.hovered().markers()
+            .enabled(true)
+            .type('circle')
+            .size(4);
+    series_1.tooltip()
+            .position('right')
+            .anchor('left-center')
+            .offsetX(5)
+            .offsetY(5);
+
+    // create second series with mapped data
+    var series_2 = chart.line(seriesData_2);
+    series_2.name('Temperature');
+    series_2.hovered().markers()
+            .enabled(true)
+            .type('circle')
+            .size(4);
+    series_2.tooltip()
+            .position('right')
+            .anchor('left-center')
+            .offsetX(5)
+            .offsetY(5);
+
+
+    // turn the legend on
+    chart.legend()
+            .enabled(true)
+            .fontSize(13)
+            .padding([0, 0, 10, 0]);
+
+    // set container id for the chart
+    chart.container('container');
+    // initiate chart drawing
+    chart.draw();
+});
+
+</script>
+</body>
+</html>
+
+                

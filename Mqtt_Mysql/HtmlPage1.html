@@ -1,0 +1,32 @@
+<html>
+  <head>
+    <title>Chart-mysql demo</title>
+  </head>
+
+  <body>
+
+	<p id="demo">Hello World!</p>
+	
+	<script>
+		var decodeHtmlEntity = function(x) {
+		  return x.replace(/&#(\d+);/g, function(match, dec) {
+		    return String.fromCharCode(dec);
+		  });
+		};
+		var names = "<%=name%>";
+		var arr_data = [];
+		var res = decodeHtmlEntity(names);
+		var x = JSON.parse(res);	
+		var text = "<ul>";
+		for (i = 0; i < x.length; i++) {
+	          arr_data[i] = [x[i].id , x[i].Sensor_ID , x[i].Humidity , x[i].Temperature];
+		  text += "<li><pre> "+ x[i].Sensor_ID + "   " + x[i].Humidity +"    "+  x[i].Temperature + "</pre></li>";
+		}
+		text += "</ul>";
+
+		document.getElementById("demo").innerHTML = text;
+		console.log(arr_data);
+	</script>
+
+  </body>
+</html>

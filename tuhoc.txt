@@ -1,0 +1,67 @@
+mysql> Create database wsn;
+Query OK, 1 row affected (0,00 sec)
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| phpmyadmin         |
+| sys                |
+| test               |
+| wordpress          |
+| wsn                |
++--------------------+
+8 rows in set (0,00 sec)
+
+mysql> use wsn;
+Database changed
+mysql> create table sensordata(id int(10) primary key auto_increment, Devicedid int(10) not null, temp int(10) not null, hum int(10) not null, dust int(10) not null, time datetime);
+// primary key auto_increment tự động tăng giá trị id, not null không cho trường null
+
+mysql> desc sensordata;
+mysql> insert into sensordata(Devicedid,temp,hum,dust) values(1,20,80,25);
+mysql> select * from sensordata;
+// lay 2 table trong mysql
+mysql> select tên trường  from tên bảng;
+// Lấy giá có dust = 25:
+mysql> select * from sensordata where dust=25;
++----+-----------+------+-----+------+------+
+| id | Devicedid | temp | hum | dust | time |
++----+-----------+------+-----+------+------+
+|  1 |         1 |   20 |  80 |   25 | NULL |
++----+-----------+------+-----+------+------+
+// Sắp xếp theo thứ tự tăng dần
+mysql> select * from sensordata order by dust asc; (sensordata: ten bang, dust ten truong, asc la sap xep tang dan
+// chi lay 3 gia tri 
+mysql> select * from sensordata order by dust asc limit 3;
++----+-----------+------+-----+------+------+
+| id | Devicedid | temp | hum | dust | time |
++----+-----------+------+-----+------+------+
+|  5 |         9 |   17 |  49 |   12 | NULL |
+|  1 |         1 |   20 |  80 |   25 | NULL |
+|  2 |         2 |   24 |  70 |   26 | NULL |
++----+-----------+------+-----+------+------+
+// Xóa 1 giá trị có hum = a trong bàng
+mysql> delete from sensordata where hum = a;
+
+// tao file python
+namphc@Ptit:~$ mkdir Python;
+namphc@Ptit:~$ cd Python;
+namphc@Ptit:~/Python$ nano random.py
+namphc@Ptit:~/Python$ python random.py 
+// run tren python 3
+python3 random.py 
+
+
+
+
+
+delete and cp
+namphc@Ptit:/var/www/html$ sudo rm -rf web/
+namphc@Ptit:/var/www/html$ sudo cp -r ~/Desktop/web/ .
+ssh cung dia chi ip:namphc@Ptit:~/Desktop$ scp -r share/ hanhuthai@172.20.10.2:~
+
+
